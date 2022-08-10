@@ -3,7 +3,7 @@ import './Header.scss'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-export default function Header() {
+export default function Header({ gender }) {
     const navigate = useNavigate()
 
     const handleClickOnDropdown = (type) => {
@@ -23,7 +23,7 @@ export default function Header() {
             </Link>
             <div className="avatar">
                 <p>Rishad</p>
-                <img src={"/images/f.png"} alt="" />
+                <img src={gender === 'M' ? "/images/m.png" : "/images/f.png"} alt="" />
                 <ul className="dropdown">
                     <li onClick={() => handleClickOnDropdown("profile")} className="dropdown-child" >Profile</li>
                     <li onClick={() => handleClickOnDropdown("logout")} className="dropdown-child" >Logout</li>

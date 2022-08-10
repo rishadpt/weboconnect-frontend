@@ -63,6 +63,12 @@
             color: #d7d7d7;
             font-weight: 700;
         }
+        .error {
+            display: flex;
+            justify-content: center;
+            color: rgb(153, 21, 21);
+            font-weight: 700;
+        }  
     }
 
     .input__container {
@@ -89,6 +95,8 @@
         justify-content: center;
 
     }
+
+ 
 
 
 }

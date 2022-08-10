@@ -17,9 +17,27 @@
             text-align: center;
         
         }
+        .pending{
+            color: rgb(255, 255, 20);
+            margin-left: 0.5rem;
+            font-size: 2rem;
+        }
+        .active{
+            color: rgb(0, 255, 0);
+            margin-left: 0.5rem;
+            font-size: 2rem;
+        }
+        .deactive{
+            color: rgb(255, 0, 0);
+            margin-left: 0.5rem;
+            font-size: 2rem;
+        }
         span{
             font-weight: 700;
             color: rgb(132, 41, 138);
+            text-transform: uppercase;
         }
     }
+  
+   
 }
