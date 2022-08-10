@@ -81,5 +81,18 @@ export const weboServices = {
                 reject(err)
             })
         })
+    },
+
+    userDelete : (data) => {
+        return new Promise((resolve, reject) => {
+            fetch(`${BASE_URL}user/delete/${data}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+            })
+        })
     }
 }
