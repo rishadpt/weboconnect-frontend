@@ -26,7 +26,6 @@ export default function Signup() {
                         <label>Male</label>
                         <input value="F" type="checkbox" />
                         <label>Female</label>
-
                     </div>
                 </div>
                 <Button name="Signup" />
