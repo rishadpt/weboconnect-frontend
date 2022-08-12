@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../Button/Button'
 import Inputs from '../Inputs/Inputs'
 import Layout from '../Loginlayout/Layout'
 import './Login.scss'
 import { weboServices } from '../../utils/Services'
 import { useForm } from "react-hook-form";
-import {useNavigate} from 'react-router-dom'
+import { useAuth } from '../../Contexts/EssentialContext'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function Login() {
     const [err, setErr] = useState(false)
     const { register, handleSubmit, formState: { errors }, } = useForm();
+    const auth = useAuth()
     const navigate = useNavigate()
 
-    const handleLogin = (data) => {
+    const handleLogin = (data) => {                 //Login function
         weboServices.userLogin(data).then(res => {
             console.log(res)
             if (res.status === 'OK') {
                 setErr(false)
-                localStorage.setItem('AccessToken', res.token)
-                localStorage.setItem('RefreshToken', res.refresh)
+                auth.setUser(res.token, res.refresh)
                 navigate('/')
             } else {
                 setErr(true)
@@ -29,7 +31,6 @@ export default function Login() {
             console.log(err)
         }
         )
-
     }
 
     return (

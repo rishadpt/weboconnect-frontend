@@ -26,7 +26,14 @@ export const weboServices = {
 
     getUser: (data) => {
         return new Promise((resolve, reject) => {
-            fetch(`${BASE_URL}user/${data}`).then(res => res.json())
+            fetch(`${BASE_URL}user/${data}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': `Bearer ${localStorage.getItem('AccessToken')}`
+                    }
+                }).then(res => res.json())
                 .then(data => {
                     resolve(data)
                 })
@@ -49,7 +56,7 @@ export const weboServices = {
                 body: JSON.stringify({
                     email: data.Email,
                     name: data.Name,
-                    Phone: data.Mobile,
+                    phone: data.Mobile,
                     gender: data.gender.join(''),
                     password: data.Password
                 })
@@ -63,12 +70,13 @@ export const weboServices = {
         })
     },
 
-    editUser: (data) => {
+    editUser: (data, id) => {
         return new Promise((resolve, reject) => {
-            fetch(`${BASE_URL}user/edit/${1}`, {
+            fetch(`${BASE_URL}user/edit/${id}`, {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('AccessToken')}`
                 },
                 body: JSON.stringify({
                     name: data.Name,
@@ -83,15 +91,59 @@ export const weboServices = {
         })
     },
 
-    userDelete : (data) => {
+    userDelete: (data) => {
         return new Promise((resolve, reject) => {
             fetch(`${BASE_URL}user/delete/${data}`,
-            {
-                method: 'DELETE',
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': `Bearer ${localStorage.getItem('AccessToken')}`
+                    },
+
+                }).then(res => res.json()).then(data => {
+                    resolve(data)
+                }).catch(err => {
+                    reject(err)
+                })
+        })
+    },
+
+    changePassword: (data, id) => {
+        return new Promise((resolve, reject) => {
+            fetch(`${BASE_URL}user/changepassword/${id}`, {
+                method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('AccessToken')}`
                 },
-                
+                body: JSON.stringify({
+                    oldPassword: data["current password"],
+                    password: data["new password"]
+                })
+            }).then(res => res.json()).then(data => {
+                resolve(data)
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    },
+
+    renewAccessToken: (data) => {
+        return new Promise((resolve, reject) => {
+            fetch(`${BASE_URL}user/renew`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('AccessToken')}`
+                },
+                body: JSON.stringify({
+                    refresh: data
+                })
+            }).then(res => res.json()).then(data => {
+                resolve(data)
+            }).catch(err => {
+                reject(err)
             })
         })
     }
