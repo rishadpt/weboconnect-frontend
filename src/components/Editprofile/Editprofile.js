@@ -45,9 +45,16 @@ export default function Editprofile() {
                         setResponse(true)
                         setMessage(res.message)
                     }).catch(err => {
-                        console.log(err)
+                        reset()
+                        setResponse(true)
+                        setMessage(err)
                     }
                     )
+                }
+                else{
+                    reset()
+                    setResponse(true)
+                    setMessage(res.message)
                 }
             }
         )
